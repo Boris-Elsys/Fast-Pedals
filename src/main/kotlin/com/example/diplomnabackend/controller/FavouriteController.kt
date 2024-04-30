@@ -54,5 +54,4 @@ class FavouriteController (
         return ResponseEntity.ok("Favourite with listingId: $id deleted successfully")
     }
 
-
 }
