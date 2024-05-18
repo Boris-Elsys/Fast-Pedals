@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fastpedals-deployment
+  labels:
+    app: fastpedals
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fastpedals
+  template:
+    metadata:
+      labels:
+        app: fastpedals
+    spec:
+      containers:
+        - name: fastpedals
+          image: byab5/fast_pedals:deployment
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fastpedals-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: fastpedals
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
