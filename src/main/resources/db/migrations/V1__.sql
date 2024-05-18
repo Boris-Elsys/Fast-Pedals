@@ -76,28 +76,28 @@ ALTER TABLE user
     ADD CONSTRAINT uc_user_name UNIQUE (name);
 
 ALTER TABLE favourite
-    ADD CONSTRAINT FK_FAVOURITE_ON_LISTING FOREIGN KEY (listing_id) REFERENCES listing (id);
+    ADD CONSTRAINT FK_FAVOURITE_ON_LISTING FOREIGN KEY (listing_id) REFERENCES listing (id) ON DELETE CASCADE;
 
 ALTER TABLE favourite
-    ADD CONSTRAINT FK_FAVOURITE_ON_USER FOREIGN KEY (user_id) REFERENCES user (id);
+    ADD CONSTRAINT FK_FAVOURITE_ON_USER FOREIGN KEY (user_id) REFERENCES user (id) ON DELETE CASCADE;
 
 ALTER TABLE listing
-    ADD CONSTRAINT FK_LISTING_ON_BIKE FOREIGN KEY (bike_id) REFERENCES bike (id);
+    ADD CONSTRAINT FK_LISTING_ON_BIKE FOREIGN KEY (bike_id) REFERENCES bike (id) ON DELETE CASCADE;
 
 ALTER TABLE listing
-    ADD CONSTRAINT FK_LISTING_ON_USER FOREIGN KEY (user_id) REFERENCES user (id);
+    ADD CONSTRAINT FK_LISTING_ON_USER FOREIGN KEY (user_id) REFERENCES user (id) ON DELETE CASCADE;
 
 ALTER TABLE listing_images
-    ADD CONSTRAINT fk_listing_images_on_listing FOREIGN KEY (listing_id) REFERENCES listing (id);
+    ADD CONSTRAINT fk_listing_images_on_listing FOREIGN KEY (listing_id) REFERENCES listing (id) ON DELETE CASCADE;
 
 ALTER TABLE user_favourites
-    ADD CONSTRAINT fk_usefav_on_favourite FOREIGN KEY (favourites_id) REFERENCES favourite (id);
+    ADD CONSTRAINT fk_usefav_on_favourite FOREIGN KEY (favourites_id) REFERENCES favourite (id) ON DELETE CASCADE;
 
 ALTER TABLE user_favourites
-    ADD CONSTRAINT fk_usefav_on_user FOREIGN KEY (user_id) REFERENCES user (id);
+    ADD CONSTRAINT fk_usefav_on_user FOREIGN KEY (user_id) REFERENCES user (id) ON DELETE CASCADE;
 
 ALTER TABLE user_listings
-    ADD CONSTRAINT fk_uselis_on_listing FOREIGN KEY (listings_id) REFERENCES listing (id);
+    ADD CONSTRAINT fk_uselis_on_listing FOREIGN KEY (listings_id) REFERENCES listing (id) ON DELETE CASCADE;
 
 ALTER TABLE user_listings
-    ADD CONSTRAINT fk_uselis_on_user FOREIGN KEY (user_id) REFERENCES user (id);
+    ADD CONSTRAINT fk_uselis_on_user FOREIGN KEY (user_id) REFERENCES user (id) ON DELETE CASCADE;
