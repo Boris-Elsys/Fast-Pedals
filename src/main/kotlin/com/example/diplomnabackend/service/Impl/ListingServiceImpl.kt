@@ -240,11 +240,6 @@ class ListingServiceImpl (
 
     override fun deleteById(id: Long) {
 
-        val listing = listingRepository.findById(id).orElseThrow { err }
-
-        favouriteRepository.deleteAllByListingId(id)
-        bikeRepository.deleteById(listing.getBike()?.getId()!!)
-
         listingRepository.deleteById(id)
 
     }
