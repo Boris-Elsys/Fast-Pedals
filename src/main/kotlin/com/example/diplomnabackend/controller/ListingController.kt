@@ -1,18 +1,47 @@
 package com.example.diplomnabackend.controller
 
-import com.example.diplomnabackend.dto.ListingDTO
 import com.example.diplomnabackend.dto.ListingBikeDTO
+import com.example.diplomnabackend.dto.ListingDTO
 import com.example.diplomnabackend.dto.WholeListingDTO
+import com.example.diplomnabackend.service.DOS3Service
 import com.example.diplomnabackend.service.ListingService
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
-
 
 @RestController
 @RequestMapping("/api/listing")
 class ListingController (
     private val listingService: ListingService
 ) {
+
+    @Autowired
+    private lateinit var doS3Service: DOS3Service
+
+    data class PresignedUrlResponse(val presignedUrl: String)
+
+    @PostMapping("/generate-presigned-upload-url")
+    fun generatePresignedUploadUrl(
+        @RequestParam key: String,
+        @RequestParam contentType: String
+    ): ResponseEntity<PresignedUrlResponse> {
+
+        val presignedUrl = doS3Service.getPreSignedPutUrl(key, contentType)
+        val response = PresignedUrlResponse(presignedUrl)
+
+        return ResponseEntity.ok(response)
+    }
+
+    @PostMapping("/generate-presigned-download-url")
+    fun generatePresignedDownloadUrl(
+        @RequestParam key: String
+    ): ResponseEntity<PresignedUrlResponse> {
+
+        val presignedUrl = doS3Service.getPreSignedGetUrl(key)
+        val response = PresignedUrlResponse(presignedUrl)
+
+        return ResponseEntity.ok(response)
+    }
 
     @GetMapping
     fun getAllListings(): ResponseEntity<List<ListingDTO>> {
